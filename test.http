@@ -1,0 +1,18 @@
+### Create account
+POST {{host}}/{{v1}}/accounts
+Accept: application/json
+Content-Type: application/json
+
+{
+  "owner": "Akbar si legit3",
+  "currency": "USD"
+}
+
+### Get account
+GET {{host}}/{{v1}}/accounts/1
+Accept: application/json
+
+
+### Get list account
+GET {{host}}/{{v1}}/accounts?page=1000&limit=10
+Accept: application/json
