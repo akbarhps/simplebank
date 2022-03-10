@@ -4,25 +4,25 @@ import (
 	"database/sql"
 	"github.com/akbarhps/simplebank/api"
 	db "github.com/akbarhps/simplebank/db/sqlc"
+	"github.com/akbarhps/simplebank/util"
 	_ "github.com/lib/pq"
 	"log"
 )
 
-const (
-	dbDriver      = "postgres"
-	dbSource      = "postgres://root:secret@localhost:5432/simple_bank?sslmode=disable"
-	serverAddress = ":8080"
-)
-
 func main() {
-	conn, err := sql.Open(dbDriver, dbSource)
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("error read config:", err)
+	}
+
+	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("error creating db conn:", err)
 	}
 
 	store := db.NewStore(conn)
 	server := api.NewServer(store)
-	if err = server.Start(serverAddress); err != nil {
+	if err = server.Start(config.ServerAddress); err != nil {
 		log.Fatal("error starting server:", err)
 	}
 }
