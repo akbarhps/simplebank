@@ -82,12 +82,12 @@ func TestListAccounts(t *testing.T) {
 		createRandomAccount(t)
 	}
 
-	arg := ListAccountsParams{
+	arg := ListAccountParams{
 		Limit:  5,
 		Offset: 5,
 	}
 
-	listAcc, err := testQueries.ListAccounts(context.Background(), arg)
+	listAcc, err := testQueries.ListAccount(context.Background(), arg)
 	assert.Nil(t, err)
 	assert.NotEmpty(t, listAcc)
 
